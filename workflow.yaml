@@ -7,21 +7,8 @@ spec:
     strategy: OnPodSuccess # delete pods when workflow is successful
   entrypoint: main
   serviceAccountName: argo
-  # arguments:
-  #   parameters:
-  #   - name: git_ref_type
-  #     value: branches
-  #   - name: git_version
   templates:
   - name: main
-    # inputs:
-    #   parameters:
-    #   - name: git_ref_type
-    #   - name: git_version
-    #   - name: upstream_repo
-    #     value: quay.io/bradfordwagner/go-builder
-    #   - name: upstream_tag
-    #     value: 2.5.0
     dag:
       tasks:
       - name: invoke-other-builds
@@ -33,8 +20,6 @@ spec:
             value: "{{ item.git_version }}"
           - name: git_ref_type
             value: branches
-          # - name: extra_args
-          #   value: "--log"
         templateRef:
           name: flavor-git-template
           template: main
